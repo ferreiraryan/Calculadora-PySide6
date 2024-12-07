@@ -8,7 +8,7 @@ from buttons import Button, ButtonsGrid
 from variables import WINDOW_ICON_PATH, SMALL_FONT_SIZE, BIG_FONT_SIZE, TEXT_MARGIN, MINIMUM_WIDTH
 from utils import isEmpty, isNUmOrDot
 
-
+#Classe que controla a tela principal
 class MainWindow(QMainWindow):
     def __init__(self, parent: QWidget | None = None, *args, **kwargs) -> None:
         super().__init__(parent,*args, **kwargs)
@@ -22,9 +22,6 @@ class MainWindow(QMainWindow):
         # Set title
         self.setWindowTitle("Calculadora")
         
-
-        
-        
     def adjustFixedSize(self):
         #Last ajust
         self.adjustSize()
@@ -36,7 +33,7 @@ class MainWindow(QMainWindow):
     def makeMsgBox(self):
         return QMessageBox(self)
 
-
+# Classe que controla a telinha superior
 class Info(QLabel):
     def __init__(self, text: str, parent: QWidget | None = None) -> None:
         super().__init__(text, parent)
@@ -46,13 +43,14 @@ class Info(QLabel):
         self.setStyleSheet(f'font-size: {SMALL_FONT_SIZE}px;')
         self.setAlignment(Qt.AlignmentFlag.AlignRight)
 
+
+#Classe que controla o Display
 class Display(QLineEdit):
     eqPressed = Signal()
     delPressed = Signal()
     clearPressed = Signal()
     inputPressed = Signal(str)
     operatorPressed = Signal(str)
-    
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -66,6 +64,7 @@ class Display(QLineEdit):
         self.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.setTextMargins(*margins)
         
+    # Filtra as teclas clicadas e atribui o atalho
     def keyPressEvent(self, event: QKeyEvent) -> None:
         text = event.text().strip()
         key = event.key()
@@ -104,12 +103,12 @@ class Display(QLineEdit):
 
 
 if __name__ == '__main__':
-    # Make the aplication
+    # Cria a aplicação
     app = QApplication(sys.argv)
     setupTheme(app)
     window = MainWindow()
     
-    #Set icon   
+    # Seta o icone 
     icon = QIcon(str(WINDOW_ICON_PATH))
     window.setWindowIcon(icon)
     app.setWindowIcon(icon)

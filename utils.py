@@ -1,5 +1,6 @@
 import re
 
+# Caracteres validos para tipo "Numero"
 NUM_OR_DOT_REGEX = re.compile(r'^[0-9.]$')
 
 

@@ -27,7 +27,7 @@ class ButtonsGrid(QGridLayout):
         *args, **kwargs
         ) -> None:
         super().__init__(*args, **kwargs)
-
+        #Define leyout do grid
         self._gridMask = [
             ['C', '◀', '^', '/'],
             ['7', '8', '9', '*'],
@@ -35,16 +35,20 @@ class ButtonsGrid(QGridLayout):
             ['1', '2', '3', '+'],
             ['N',  '0', '.', '='],
         ]
+        #Importa as outras partes
         self.display = display
         self.info = info
         self.window = window
+        
+        #Variaveis de contas
         self._equation = ''
         self._equationInitialValue = 'Sua conta'
         self._left = None
         self._right = None
         self._op = None
-        
         self.equation = self._equationInitialValue = 'Sua conta'
+        
+        
         self._makeGrid()
         
     @property
@@ -57,12 +61,14 @@ class ButtonsGrid(QGridLayout):
         self.info.setText(value)
     
     def _makeGrid(self):
+        #Conecta o teclado a calculadora
         self.display.eqPressed.connect(self._eq)
         self.display.delPressed.connect(self._backspace)
         self.display.clearPressed.connect(self._clear)
         self.display.inputPressed.connect(self._insertToDisplay)
         self.display.operatorPressed.connect(self._configLeftOp)
         
+        #Checa os butões 
         for i, row in enumerate(self._gridMask):
             for j, buttonText in enumerate(row):
                 button = Button(buttonText)
@@ -75,8 +81,10 @@ class ButtonsGrid(QGridLayout):
                 slot = self._makeSlot(self._insertToDisplay, buttonText)
                 self._connectButtonClicked(button, slot)
     
+    
     def _connectButtonClicked(self, button, slot):
                 button.clicked.connect(slot)
+    
     
     def _configSpecialButton(self, button):
         text = button.text()
@@ -170,7 +178,7 @@ class ButtonsGrid(QGridLayout):
         try:
             if '^' in self.equation and isinstance(self._left, float | int):
                 result = math.pow(self._left, self._right)
-                convertToNumber(str(result))
+                result = convertToNumber(str(result))
             else:
                 result = eval(self.equation)
         except ZeroDivisionError:
