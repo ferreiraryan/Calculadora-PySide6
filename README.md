@@ -1,6 +1,7 @@
-# 📌 Mastermind with UI
+# 📌 Calculator PySide6
 
-A version of the mastermind game made using PySide6 for academic purposes.
+A calculator in PySide.
+Made for academic reasons.
 
 ## 🚀 Technologies
 
